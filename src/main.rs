@@ -1,45 +1,39 @@
-use actix_web::{get, App, HttpServer, Responder, HttpResponse};
-use askama::Template;
-use serde::Serialize;
+mod models;
+mod repository;
+mod api;
+mod pages;
+mod service;
 
-#[derive(Serialize)]
-struct Message {
-    message: String,
-}
-
-#[get("/json-endpoint")]
-async fn json_endpoint() -> impl Responder {
-    let message = Message {
-        message: "Hello, JSON!".to_string(),
-    };
-
-    HttpResponse::Ok().json(message)
-}
-
-#[derive(Template)]
-#[template(path = "new_insight.html")]
-struct NewInsightTemplate {
-    message: String,
-}
-
-#[get("/html-page")]
-async fn html_page() -> impl Responder {
-    let template = NewInsightTemplate {
-        message: "Hello, HTML with Templating!".to_string(),
-    };
-
-    let body = template.render().unwrap();
-    HttpResponse::Ok().body(body)
-}
+use std::env;
+use std::io::{Error, ErrorKind};
+use actix_web::{App, HttpServer, web};
+use dotenv::dotenv;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
-        App::new()
-            .service(json_endpoint)
-            .service(html_page)
-    })
-        .bind("127.0.0.1:8080")?
-        .run()
-        .await
+    dotenv().ok();
+
+    let repo = match env::var("DB_DSN") {
+        Ok(dsn) => repository::new_postgres_repository(dsn.as_str()).await,
+        Err(_) => {
+            eprintln!("DB_DSN env variable not set");
+            return Err(Error::new(ErrorKind::Other, "DB_DSN env variable not set"));
+        }
+    };
+
+    let service = service::new_insights_service(repo.unwrap()).await;
+
+    match env::var("SERVICE_PORT") {
+        Ok(value) => HttpServer::new(move || {
+            App::new()
+                .app_data(web::Data::new(service.clone()))
+                .service(api::register_event)
+                .service(api::register_insight)
+                .service(pages::html_page)
+        })
+            .bind(format!("127.0.0.1{}", value))?
+            .run()
+            .await,
+        Err(_) => Err(Error::new(ErrorKind::Other, "SERVICE_PORT env variable not set"))
+    }
 }

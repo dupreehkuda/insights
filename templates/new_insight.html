@@ -1,5 +1,48 @@
+<!DOCTYPE html>
 <html lang="en">
-    <body>
-        <h1>{{ message }}</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insights</title>
+</head>
+<body>
+
+<h2><i>insights</i></h2>
+
+<form id="insightForm">
+    <label for="insight">Insight:</label>
+    <input type="text" id="insight" name="insight" required>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+</form>
+
+<script>
+    async function submitForm() {
+        const data = {
+            event_id: "{{ event_id }}",
+            insight: document.getElementById("insight").value
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/insight", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log(responseData);
+            } else {
+                console.error(`HTTP error! Status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error("Network error occurred", error);
+        }
+    }
+</script>
+
+</body>
 </html>
