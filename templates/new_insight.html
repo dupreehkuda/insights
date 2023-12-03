@@ -16,9 +16,12 @@
     <button type="button" onclick="submitForm()">Submit</button>
 </form>
 
-<!-- Display success message -->
 <div id="successMessage" style="display: none; color: green;">
     Submission successful!
+</div>
+
+<div id="error" style="display: none; color: red;">
+    Something went wrong
 </div>
 
 <script>
@@ -44,6 +47,8 @@
                 console.error(`HTTP error! Status: ${response.status}`);
             }
         } catch (error) {
+            document.getElementById("error").style.display = "block";
+            document.getElementById("insightForm").style.display = "none";
             console.error("Network error occurred", error);
         }
     }

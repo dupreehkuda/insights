@@ -1,4 +1,6 @@
 use std::error::Error;
+use uuid::Uuid;
+use crate::errors::CustomError::NoEventFound;
 use crate::models::{RegisterEventRequest, RegisterInsight, RegisterInsightRequest};
 use crate::repository::Postgres;
 
@@ -24,11 +26,26 @@ impl Service {
     pub async fn register_new_insight(&self, req: RegisterInsightRequest) -> Result<(), Box<dyn Error>> {
         self.repository
             .register_new_insight(RegisterInsight {
-                insight_id: uuid::Uuid::new_v4(),
+                insight_id: Uuid::new_v4(),
                 event_id: req.event_id,
                 insight: req.insight,
             })
             .await
             .map_err(|err| Box::new(err) as Box<dyn Error>)
+    }
+
+    pub async fn check_event_existence(&self, event_id: Uuid) -> Result<bool, Box<dyn Error>> {
+        self.repository
+            .check_event_existence(event_id)
+            .await
+            .map_err(|err| Box::new(err) as Box<dyn Error>)
+    }
+
+    pub async fn start_event(&self, event_id: Uuid) -> Result<(), Box<dyn Error>> {
+        if !self.check_event_existence(event_id).await.unwrap() {
+            return Err(Box::new(NoEventFound));
+        }
+
+        self.repository.start_event(event_id).await.map_err(|err| Box::new(err) as Box<dyn Error>)
     }
 }

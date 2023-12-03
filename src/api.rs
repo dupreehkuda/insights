@@ -2,7 +2,7 @@ use std::env;
 use actix_web::{HttpResponse, post, Responder, web};
 use crate::{models, service};
 
-#[post("/api/v1/event")]
+#[post("/api/v1/event/register")]
 async fn register_event(
     service: web::Data<service::Service>,
     request: web::Json<models::RegisterEventRequest>
@@ -20,6 +20,35 @@ async fn register_event(
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
             HttpResponse::InternalServerError().finish()
+        }
+    }
+}
+
+#[post("/api/v1/event/start")]
+async fn start_event(
+    service: web::Data<service::Service>,
+    request: web::Json<models::StartEventRequest>
+) -> impl Responder {
+    match service.start_event(request.event_id).await {
+        Ok(_) => {
+            let host = env::var("SERVICE_HOST").unwrap();
+
+            let response = models::StartEventResponse {
+                summary_link: format!("{}/summary/{}", host, request.event_id),
+                error: None
+            };
+
+            HttpResponse::Ok().json(response)
+        }
+        Err(err) => {
+            eprintln!("Error processing the event: {:?}", err);
+
+            let response = models::StartEventResponse {
+                summary_link: String::new(),
+                error: Some(err.to_string())
+            };
+
+            HttpResponse::NoContent().json(response)
         }
     }
 }

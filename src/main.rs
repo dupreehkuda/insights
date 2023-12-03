@@ -3,6 +3,7 @@ mod repository;
 mod api;
 mod pages;
 mod service;
+mod errors;
 
 use std::env;
 use std::io::{Error, ErrorKind};
@@ -29,7 +30,8 @@ async fn main() -> std::io::Result<()> {
                 .app_data(web::Data::new(service.clone()))
                 .service(api::register_event)
                 .service(api::register_insight)
-                .service(pages::html_page)
+                .service(api::start_event)
+                .service(pages::new_insight)
         })
             .bind(format!("127.0.0.1{}", value))?
             .run()

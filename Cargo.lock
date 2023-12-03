@@ -832,6 +832,7 @@ dependencies = [
  "bb8-postgres",
  "dotenv",
  "dotenv_codegen",
+ "log",
  "serde",
  "tokio",
  "tokio-postgres",
