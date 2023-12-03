@@ -19,6 +19,13 @@ pub struct RegisterInsightRequest {
     pub insight: String,
 }
 
+#[derive(Deserialize, Serialize, Clone)]
+pub struct RegisterInsight {
+    pub insight_id: Uuid,
+    pub event_id: Uuid,
+    pub insight: String,
+}
+
 #[derive(Template)]
 #[template(path = "new_insight.html")]
 pub struct NewInsightTemplate {

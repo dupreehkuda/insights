@@ -9,12 +9,17 @@
 
 <h2><i>insights</i></h2>
 
-<form id="insightForm">
+<form id="insightForm" style="display: block">
     <label for="insight">Insight:</label>
     <input type="text" id="insight" name="insight" required>
 
     <button type="button" onclick="submitForm()">Submit</button>
 </form>
+
+<!-- Display success message -->
+<div id="successMessage" style="display: none; color: green;">
+    Submission successful!
+</div>
 
 <script>
     async function submitForm() {
@@ -33,8 +38,8 @@
             });
 
             if (response.ok) {
-                const responseData = await response.json();
-                console.log(responseData);
+                document.getElementById("successMessage").style.display = "block";
+                document.getElementById("insightForm").style.display = "none";
             } else {
                 console.error(`HTTP error! Status: ${response.status}`);
             }

@@ -11,5 +11,5 @@ serde = { version = "1.0.193", features = ["derive"] }
 dotenv = "0.15.0"
 dotenv_codegen = "0.15.0"
 tokio-postgres = {version="0.7.8", features=["with-uuid-1", "with-chrono-0_4"]}
-uuid = { version = "1.6.1", features = ["serde"] }
+uuid = { version = "1.6.1", features = ["v4", "serde"] }
 bb8-postgres = { version = "0.8.1" }

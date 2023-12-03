@@ -1,7 +1,7 @@
 use bb8_postgres::bb8::Pool;
 use bb8_postgres::{tokio_postgres::NoTls, PostgresConnectionManager};
 use tokio_postgres::Error;
-use crate::models::{RegisterEventRequest, RegisterInsightRequest};
+use crate::models::{RegisterEventRequest, RegisterInsight};
 
 #[derive(Clone)]
 pub struct Postgres {
@@ -25,10 +25,11 @@ impl Postgres {
         result.map(|_| ())
     }
 
-    pub async fn register_new_insight(&self, req: RegisterInsightRequest) -> Result<(), Error> {
+    pub async fn register_new_insight(&self, req: RegisterInsight) -> Result<(), Error> {
         let conn = self.pool.get().await.unwrap();
         let result = conn
-            .execute("INSERT INTO insights (event_id, insight) VALUES ($1, $2);", &[&req.event_id, &req.insight])
+            .execute("INSERT INTO insights (insight_id, event_id, insight) VALUES ($1, $2, $3);",
+                     &[&req.insight_id, &req.event_id, &req.insight])
             .await;
 
         result.map(|_| ())

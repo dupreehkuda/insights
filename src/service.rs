@@ -1,5 +1,5 @@
 use std::error::Error;
-use crate::models::{RegisterEventRequest, RegisterInsightRequest};
+use crate::models::{RegisterEventRequest, RegisterInsight, RegisterInsightRequest};
 use crate::repository::Postgres;
 
 #[derive(Clone)]
@@ -23,7 +23,11 @@ impl Service {
 
     pub async fn register_new_insight(&self, req: RegisterInsightRequest) -> Result<(), Box<dyn Error>> {
         self.repository
-            .register_new_insight(req)
+            .register_new_insight(RegisterInsight {
+                insight_id: uuid::Uuid::new_v4(),
+                event_id: req.event_id,
+                insight: req.insight,
+            })
             .await
             .map_err(|err| Box::new(err) as Box<dyn Error>)
     }
