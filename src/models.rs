@@ -5,6 +5,7 @@ use uuid::Uuid;
 #[derive(Deserialize, Serialize, Clone)]
 pub struct RegisterEventRequest {
     pub event_id: Uuid,
+    pub event_subject: String,
     pub club_id: i64,
 }
 
@@ -37,10 +38,18 @@ pub struct RegisterInsight {
     pub insight: String,
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct BriefEventInfo {
+    pub event_subject: String,
+    pub insights_filling: bool,
+}
+
 #[derive(Template)]
 #[template(path = "new_insight.html")]
 pub struct NewInsightTemplate {
     pub event_id: String,
+    pub event_subject: String,
+    pub host: String,
 }
 
 #[derive(Template)]

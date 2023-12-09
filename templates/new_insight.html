@@ -9,6 +9,8 @@
 
 <h2><i>insights</i></h2>
 
+<p>Write your insight for event on {{ event_subject }}</p>
+
 <form id="insightForm" style="display: block">
     <label for="insight">Insight:</label>
     <input type="text" id="insight" name="insight" required>
@@ -32,7 +34,7 @@
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/v1/insight", {
+            const response = await fetch("http://{{ host }}/api/v1/insight", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

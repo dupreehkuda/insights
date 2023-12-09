@@ -1,15 +1,15 @@
 use std::error::Error;
 use uuid::Uuid;
 use crate::errors::CustomError::NoEventFound;
-use crate::models::{RegisterEventRequest, RegisterInsight, RegisterInsightRequest};
-use crate::repository::Postgres;
+use crate::models::{BriefEventInfo, RegisterEventRequest, RegisterInsight, RegisterInsightRequest};
+use crate::repository::Repository;
 
 #[derive(Clone)]
 pub struct Service {
-    repository: Postgres,
+    repository: Repository,
 }
 
-pub async fn new_insights_service(repo: Postgres) -> Service {
+pub async fn new_insights_service(repo: Repository) -> Service {
     Service {
         repository: repo,
     }
@@ -37,6 +37,13 @@ impl Service {
     pub async fn check_event_existence(&self, event_id: Uuid) -> Result<bool, Box<dyn Error>> {
         self.repository
             .check_event_existence(event_id)
+            .await
+            .map_err(|err| Box::new(err) as Box<dyn Error>)
+    }
+
+    pub async fn get_brief_event_info(&self, event_id: Uuid) -> Result<BriefEventInfo, Box<dyn Error>> {
+        self.repository
+            .get_brief_event_info(event_id)
             .await
             .map_err(|err| Box::new(err) as Box<dyn Error>)
     }

@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS "insights" (
 
 CREATE TABLE IF NOT EXISTS  "insights_events" (
                                                   "event_id" uuid PRIMARY KEY NOT NULL,
+                                                  "event_subject" text NOT NULL,
                                                   "club_id" int8 NOT NULL,
                                                   "filling" boolean NOT NULL DEFAULT true,
                                                   "reviewed" boolean NOT NULL DEFAULT false,
