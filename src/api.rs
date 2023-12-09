@@ -1,11 +1,11 @@
-use std::env;
-use actix_web::{HttpResponse, post, Responder, web};
 use crate::{models, service};
+use actix_web::{post, web, HttpResponse, Responder};
+use std::env;
 
 #[post("/api/v1/event/register")]
 async fn register_event(
     service: web::Data<service::Service>,
-    request: web::Json<models::RegisterEventRequest>
+    request: web::Json<models::RegisterEventRequest>,
 ) -> impl Responder {
     match service.register_new_event(request.clone()).await {
         Ok(_) => {
@@ -27,7 +27,7 @@ async fn register_event(
 #[post("/api/v1/event/start")]
 async fn start_event(
     service: web::Data<service::Service>,
-    request: web::Json<models::StartEventRequest>
+    request: web::Json<models::StartEventRequest>,
 ) -> impl Responder {
     match service.start_event(request.event_id).await {
         Ok(_) => {
@@ -35,7 +35,7 @@ async fn start_event(
 
             let response = models::StartEventResponse {
                 summary_link: format!("{}/summary/{}", host, request.event_id),
-                error: None
+                error: None,
             };
 
             HttpResponse::Ok().json(response)
@@ -45,7 +45,7 @@ async fn start_event(
 
             let response = models::StartEventResponse {
                 summary_link: String::new(),
-                error: Some(err.to_string())
+                error: Some(err.to_string()),
             };
 
             HttpResponse::NoContent().json(response)
@@ -56,12 +56,10 @@ async fn start_event(
 #[post("/api/v1/insight")]
 async fn register_insight(
     service: web::Data<service::Service>,
-    request: web::Json<models::RegisterInsightRequest>
+    request: web::Json<models::RegisterInsightRequest>,
 ) -> impl Responder {
     match service.register_new_insight(request.clone()).await {
-        Ok(_) => {
-            HttpResponse::Ok().finish()
-        }
+        Ok(_) => HttpResponse::Ok().finish(),
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
             HttpResponse::InternalServerError().finish()

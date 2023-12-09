@@ -1,8 +1,8 @@
+use crate::models::{BriefEventInfo, RegisterEventRequest, RegisterInsight};
 use bb8_postgres::bb8::Pool;
 use bb8_postgres::{tokio_postgres::NoTls, PostgresConnectionManager};
 use tokio_postgres::Error;
 use uuid::Uuid;
-use crate::models::{BriefEventInfo, RegisterEventRequest, RegisterInsight};
 
 #[derive(Clone)]
 pub struct Repository {
@@ -32,8 +32,10 @@ impl Repository {
     pub async fn register_new_insight(&self, req: RegisterInsight) -> Result<(), Error> {
         let conn = self.pool.get().await.unwrap();
         let result = conn
-            .execute("INSERT INTO insights (insight_id, event_id, insight) VALUES ($1, $2, $3);",
-                     &[&req.insight_id, &req.event_id, &req.insight])
+            .execute(
+                "INSERT INTO insights (insight_id, event_id, insight) VALUES ($1, $2, $3);",
+                &[&req.insight_id, &req.event_id, &req.insight],
+            )
             .await;
 
         result.map(|_| ())
@@ -63,20 +65,28 @@ impl Repository {
             .unwrap();
 
         if result.is_empty() {
-            return Ok(BriefEventInfo { event_subject: "".to_string(), insights_filling: false });
+            return Ok(BriefEventInfo {
+                event_subject: "".to_string(),
+                insights_filling: false,
+            });
         }
 
         let event_subject: String = result[0].get(0);
         let insights_filling: bool = result[0].get(1);
 
-        Ok(BriefEventInfo{ event_subject, insights_filling })
+        Ok(BriefEventInfo {
+            event_subject,
+            insights_filling,
+        })
     }
 
     pub async fn start_event(&self, event_id: Uuid) -> Result<(), Error> {
         let conn = self.pool.get().await.unwrap();
         let result = conn
-            .execute("UPDATE insights_events SET filling = false WHERE event_id = $1;",
-                     &[&event_id])
+            .execute(
+                "UPDATE insights_events SET filling = false WHERE event_id = $1;",
+                &[&event_id],
+            )
             .await;
 
         result.map(|_| ())
