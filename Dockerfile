@@ -6,9 +6,9 @@ COPY . .
 
 RUN cargo build --release
 
-FROM debian:buster-slim
+FROM ubuntu:latest
 
-RUN apt-get update && apt-get install -y ca-certificates
+RUN apt-get update
 
 COPY --from=builder /app/target/release/insights /usr/local/bin/insights
 
