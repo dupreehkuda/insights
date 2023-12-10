@@ -1,6 +1,7 @@
 use crate::{models, service};
 use actix_web::{post, web, HttpResponse, Responder};
 use std::env;
+use log::info;
 
 #[post("/api/v1/event/register")]
 async fn register_event(
@@ -15,10 +16,12 @@ async fn register_event(
                 insights_link: format!("{}/insights/{}", host, request.event_id),
             };
 
+            info!("/api/v1/event/register success 200");
             HttpResponse::Ok().json(response)
         }
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
+            info!("/api/v1/event/register error 400");
             HttpResponse::InternalServerError().finish()
         }
     }
@@ -38,6 +41,7 @@ async fn start_event(
                 error: None,
             };
 
+            info!("/api/v1/event/start success 200");
             HttpResponse::Ok().json(response)
         }
         Err(err) => {
@@ -48,6 +52,7 @@ async fn start_event(
                 error: Some(err.to_string()),
             };
 
+            info!("/api/v1/event/start error 400");
             HttpResponse::BadRequest().json(response)
         }
     }
@@ -59,10 +64,13 @@ async fn finish_event(
     request: web::Json<models::ManageEventRequest>,
 ) -> impl Responder {
     match service.finish_event(request.event_id).await {
-        Ok(_) => HttpResponse::Ok(),
+        Ok(_) => {
+            info!("/api/v1/event/finish success 200");
+            HttpResponse::Ok()
+        },
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
-
+            info!("/api/v1/event/finish error 400");
             HttpResponse::BadRequest()
         }
     }
@@ -74,9 +82,13 @@ async fn register_insight(
     request: web::Json<models::RegisterInsightRequest>,
 ) -> impl Responder {
     match service.register_new_insight(request.clone()).await {
-        Ok(_) => HttpResponse::Ok().finish(),
+        Ok(_) => {
+            info!("/api/v1/insight success 200");
+            HttpResponse::Ok().finish()
+        },
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
+            info!("/api/v1/insight error 500");
             HttpResponse::InternalServerError().finish()
         }
     }

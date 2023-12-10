@@ -14,3 +14,4 @@ tokio-postgres = {version="0.7.8", features=["with-uuid-1", "with-chrono-0_4"]}
 uuid = { version = "1.6.1", features = ["v4", "serde"] }
 bb8-postgres = { version = "0.8.1" }
 log = "0.4.20"
+env_logger = { version = "0.10.1", features = [] }

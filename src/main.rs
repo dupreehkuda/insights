@@ -14,6 +14,8 @@ use std::io::{Error, ErrorKind};
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+
     let repo = match env::var("DB_DSN") {
         Ok(dsn) => repository::new_postgres_repository(dsn.as_str()).await,
         Err(_) => {
