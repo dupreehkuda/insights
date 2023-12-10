@@ -4,3 +4,8 @@ deploy:
 	docker kill insights
 	docker rm insights
 	docker run -d --restart=always --network="host" --env-file=".env" --name insights ghcr.io/dupreehkuda/insights-prod:latest
+
+.PHONY: beforecommit
+beforecommit:
+	cargo fmt
+	cargo test

@@ -9,7 +9,7 @@ use uuid::Uuid;
 #[get("/insights/{event_id}")]
 async fn new_insight(service: web::Data<service::Service>, req: HttpRequest) -> impl Responder {
     let event_id = req.match_info().get("event_id").unwrap_or_default();
-    let event_id_as_uuid = Uuid::from_str(event_id.clone()).unwrap();
+    let event_id_as_uuid = Uuid::from_str(event_id).unwrap();
 
     let brief_event_info = service
         .get_brief_event_info(event_id_as_uuid)
