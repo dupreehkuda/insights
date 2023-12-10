@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS  "insights_events" (
                                                   "event_subject" text NOT NULL,
                                                   "club_id" int8 NOT NULL,
                                                   "filling" boolean NOT NULL DEFAULT true,
-                                                  "reviewed" boolean NOT NULL DEFAULT false,
-                                                  "created_at" timestamptz NOT NULL DEFAULT NOW()
+                                                  "finished" boolean NOT NULL DEFAULT false,
+                                                  "created_at" timestamptz NOT NULL DEFAULT NOW(),
+                                                  "started_at" timestamptz,
+                                                  "finished_at" timestamptz
 )

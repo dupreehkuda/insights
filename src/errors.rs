@@ -5,6 +5,8 @@ use std::fmt;
 pub enum CustomError {
     NoEventFound,
     EventAlreadyStarted,
+    CannotRenderInsights(String),
+    EventNotStarted,
 }
 
 impl fmt::Display for CustomError {
@@ -15,6 +17,10 @@ impl fmt::Display for CustomError {
                 f,
                 "Event already started. Cannot write insights on started or finished event."
             ),
+            Self::CannotRenderInsights(ref error) => {
+                write!(f, "Cannot get insights for the event: {}", error)
+            }
+            Self::EventNotStarted => write!(f, "Event not started yet"),
         }
     }
 }

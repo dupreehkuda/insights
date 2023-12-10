@@ -1,4 +1,6 @@
-use crate::models::{BriefEventInfo, RegisterEventRequest, RegisterInsight};
+use crate::models::{
+    BriefEventInfo, InsightsSummaryTemplate, RegisterEventRequest, RegisterInsight,
+};
 use bb8_postgres::bb8::Pool;
 use bb8_postgres::{tokio_postgres::NoTls, PostgresConnectionManager};
 use tokio_postgres::Error;
@@ -58,7 +60,7 @@ impl Repository {
         let conn = self.pool.get().await.unwrap();
         let result = conn
             .query(
-                "SELECT event_subject, filling FROM insights_events WHERE event_id = $1;",
+                "SELECT event_subject, filling, finished FROM insights_events WHERE event_id = $1;",
                 &[&event_id],
             )
             .await
@@ -67,16 +69,19 @@ impl Repository {
         if result.is_empty() {
             return Ok(BriefEventInfo {
                 event_subject: "".to_string(),
-                insights_filling: false,
+                filling: false,
+                finished: false,
             });
         }
 
         let event_subject: String = result[0].get(0);
-        let insights_filling: bool = result[0].get(1);
+        let filling: bool = result[0].get(1);
+        let finished: bool = result[0].get(2);
 
         Ok(BriefEventInfo {
             event_subject,
-            insights_filling,
+            filling,
+            finished,
         })
     }
 
@@ -84,11 +89,45 @@ impl Repository {
         let conn = self.pool.get().await.unwrap();
         let result = conn
             .execute(
-                "UPDATE insights_events SET filling = false WHERE event_id = $1;",
+                "UPDATE insights_events SET filling = false, started_at = now() WHERE event_id = $1;",
                 &[&event_id],
             )
             .await;
 
         result.map(|_| ())
+    }
+
+    pub async fn finish_event(&self, event_id: Uuid) -> Result<(), Error> {
+        let conn = self.pool.get().await.unwrap();
+        let result = conn
+            .execute(
+                "UPDATE insights_events SET finished = true, finished_at = now() WHERE event_id = $1;",
+                &[&event_id],
+            )
+            .await;
+
+        result.map(|_| ())
+    }
+
+    pub async fn get_all_insights_for_event(
+        &self,
+        event_id: Uuid,
+    ) -> Result<InsightsSummaryTemplate, Error> {
+        let conn = self.pool.get().await.unwrap();
+        let result = conn
+            .query(
+                "SELECT insight FROM insights WHERE event_id = $1;",
+                &[&event_id],
+            )
+            .await
+            .unwrap();
+
+        let mut ans = InsightsSummaryTemplate { insights: vec![] };
+
+        for row in result {
+            ans.insights.push(row.get(0))
+        }
+
+        Ok(ans)
     }
 }

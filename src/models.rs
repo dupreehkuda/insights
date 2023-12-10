@@ -15,7 +15,7 @@ pub struct RegisterEventResponse {
 }
 
 #[derive(Deserialize, Serialize, Clone)]
-pub struct StartEventRequest {
+pub struct ManageEventRequest {
     pub event_id: Uuid,
 }
 
@@ -41,7 +41,8 @@ pub struct RegisterInsight {
 #[derive(Deserialize, Serialize)]
 pub struct BriefEventInfo {
     pub event_subject: String,
-    pub insights_filling: bool,
+    pub filling: bool,
+    pub finished: bool,
 }
 
 #[derive(Template)]
@@ -50,6 +51,12 @@ pub struct NewInsightTemplate {
     pub event_id: String,
     pub event_subject: String,
     pub host: String,
+}
+
+#[derive(Template)]
+#[template(path = "insights.html")]
+pub struct InsightsSummaryTemplate {
+    pub insights: Vec<String>,
 }
 
 #[derive(Template)]

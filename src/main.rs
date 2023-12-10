@@ -32,7 +32,9 @@ async fn main() -> std::io::Result<()> {
                     .service(api::register_event)
                     .service(api::register_insight)
                     .service(api::start_event)
+                    .service(api::finish_event)
                     .service(pages::new_insight)
+                    .service(pages::insights_summary)
             })
             .bind(format!("127.0.0.1{}", value))?
             .run()

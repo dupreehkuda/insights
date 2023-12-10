@@ -27,7 +27,7 @@ async fn register_event(
 #[post("/api/v1/event/start")]
 async fn start_event(
     service: web::Data<service::Service>,
-    request: web::Json<models::StartEventRequest>,
+    request: web::Json<models::ManageEventRequest>,
 ) -> impl Responder {
     match service.start_event(request.event_id).await {
         Ok(_) => {
@@ -48,7 +48,22 @@ async fn start_event(
                 error: Some(err.to_string()),
             };
 
-            HttpResponse::NoContent().json(response)
+            HttpResponse::BadRequest().json(response)
+        }
+    }
+}
+
+#[post("/api/v1/event/finish")]
+async fn finish_event(
+    service: web::Data<service::Service>,
+    request: web::Json<models::ManageEventRequest>,
+) -> impl Responder {
+    match service.finish_event(request.event_id).await {
+        Ok(_) => HttpResponse::Ok(),
+        Err(err) => {
+            eprintln!("Error processing the event: {:?}", err);
+
+            HttpResponse::BadRequest()
         }
     }
 }
