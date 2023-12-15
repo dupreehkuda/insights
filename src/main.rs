@@ -26,7 +26,7 @@ async fn main() -> std::io::Result<()> {
 
     let service = service::new_insights_service(repo.unwrap()).await;
 
-    match env::var("SERVICE_PORT") {
+    match env::var("SERVICE_ADDRESS") {
         Ok(value) => {
             HttpServer::new(move || {
                 App::new()
@@ -38,7 +38,7 @@ async fn main() -> std::io::Result<()> {
                     .service(pages::new_insight)
                     .service(pages::insights_summary)
             })
-            .bind(format!("127.0.0.1{}", value))?
+            .bind(value.to_string())?
             .run()
             .await
         }
