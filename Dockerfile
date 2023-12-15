@@ -12,4 +12,6 @@ RUN apt-get update
 
 COPY --from=builder /app/target/release/insights /usr/local/bin/insights
 
+EXPOSE 8080
+
 CMD ["insights"]
