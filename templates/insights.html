@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>insights</title>
-    <link rel="stylesheet" href="/static/styles/insight.css">
+    <link rel="stylesheet" href="/statics/styles/insight.css">
 </head>
 <body>
 <div class="insights_title">
     <h2 class="insights">insights</h2>
 </div>
 <div class="main">
-    <button class="prev-btn"><img class="img" src="/static/imgs/arrow_left.svg"></button>
+    <button class="prev-btn"><img class="img" src="/statics/imgs/arrow_left.svg"></button>
     <div class="slider-container">
         <div class="slider">
             {% for item in insights %}
@@ -21,7 +21,7 @@
             {% endfor %}
         </div>
     </div>
-    <button class="next-btn"><img class="img" src="/static/imgs/arrow_right.svg"></button>
+    <button class="next-btn"><img class="img" src="/statics/imgs/arrow_right.svg"></button>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

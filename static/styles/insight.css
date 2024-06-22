@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Caveat';
-    src: url('/static/fonts/Caveat-Bold.ttf') format('opentype');
+    src: url('/statics/fonts/Caveat-Bold.ttf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
