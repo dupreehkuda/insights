@@ -1,0 +1,126 @@
+
+@font-face {
+    font-family: 'SF-Pro-Display';
+    src: url('../../fonts/SFProDisplay-Bold.ttf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Caveat';
+    src: url('../../fonts/Caveat-Bold.ttf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Niconne';
+    src: url('../../fonts/Niconne-Regular.ttf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF-Pro-Display';
+    src: url('../../fonts/SFProDisplay-Semibold.ttf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF-Pro-Display';
+    src: url('../../fonts/SFProDisplay-Medium.ttf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF-Pro-Display';
+    src: url('../../fonts/SFProDisplay-Regular.ttf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.insights_container {
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.insights {
+    font-family: Caveat, serif;
+    font-size: 52px;
+    color: #ff7e05;
+}
+
+.main_insights_container {
+    padding-top: 50px;
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    font-family: SF-Pro-Display;
+    background: whitesmoke;
+}
+
+.submit_container {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    border-radius: 10px;
+    border: 0px solid #ff7e05;
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.2);
+    background: whitesmoke;
+    width: 100%;
+    min-width: 800px;
+    max-height: 500px;
+    min-height: 400px;
+    color: #ff7e05;
+    font-size: 18px;
+}
+
+.insights_title {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.event {
+    color: #4d4d4d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.form_button {
+    font-family: SF-Pro-Display;
+    box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    color: #ff7e05;
+    font-weight: normal;
+    font-size: 18px;
+    background: whitesmoke;
+    height: 40px;
+}
+
+@media (max-width: 500px) {
+    .input {
+        width: 395px;
+        min-width: unset;
+    }
+
+    .main_insights_container {
+
+    }
+}

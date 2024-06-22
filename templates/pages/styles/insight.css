@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Caveat';
+    src: url('../../fonts/Caveat-Bold.ttf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    padding-top: 100px;
+    flex-direction: column;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+}
+
+.img {
+    height: 24px;
+    width: 24px;
+}
+
+.slider-container {
+    width: 800px;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    padding: 10px;
+    flex: 0 0 100%;
+    height: 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card p {
+    font-size: 24px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.prev-btn, .next-btn {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: black;
+    border: none;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.insights {
+    font-family: Caveat, serif;
+    font-size: 52px;
+    color: #ff7e05;
+}
+
+.insights_title{
+    height: 150px;
+}
+
+@keyframes pageFlip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(-180deg);
+    }
+}
+
+.card.flipping {
+
+}
+
+@media (max-width: 500px) {
+    .prev-btn, .next-btn {
+        display: none;
+    }
+    .card p {
+        font-size: 20px;
+        padding: 5px;
+    }
+    .card {
+        padding: 10px;
+    }
+}

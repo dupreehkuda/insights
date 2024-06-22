@@ -4,28 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>insights</title>
+    <link rel="stylesheet" href="styles/new_insight.css">
 </head>
 <body>
-
-<h2><i>insights</i></h2>
-
-<p>Write your insight for event on {{ event_subject }}</p>
-
-<form id="insightForm" style="display: block">
-    <label for="insight">Insight:</label>
-    <input type="text" id="insight" name="insight" required>
-
-    <button type="button" onclick="submitForm()">Submit</button>
-</form>
-
-<div id="successMessage" style="display: none; color: green;">
-    Submission successful!
+<div class="main_insights_container">
+    <div class="insights_title">
+        <h2 class="insights">insights</h2>
+    </div>
+    <div class="container">
+        <div class="insights_container">
+            <div class="event">
+                <p>Write your insight for event on</p>
+                <p>{{ event_subject }}</p>
+            </div>
+            <form id="insightForm">
+                <div class="submit_container">
+                    <textarea type="text" id="insight" class="input" placeholder="insight" name="insight" required></textarea>
+                </div>
+                <button type="button" class="form_button" onclick="submitForm()">Send</button>
+            </form>
+        </div>
+    </div>
+    <div id="successMessage" style="display: none; color: green;">
+        Submission successful!
+    </div>
+    <div id="error" style="display: none; color: red;">
+        Something went wrong
+    </div>
 </div>
-
-<div id="error" style="display: none; color: red;">
-    Something went wrong
-</div>
-
 <script>
     async function submitForm() {
         const data = {

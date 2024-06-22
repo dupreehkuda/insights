@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight Slider</title>
+    <link rel="stylesheet" href="./styles/insight.css">
+</head>
+<body>
+<div class="insights_title">
+    <h2 class="insights">insights</h2>
+</div>
+<div class="main">
+    <button class="prev-btn"><img class="img" src="./imgs/arrow_left.svg"></button>
+    <div class="slider-container">
+        <div class="slider">
+            {% for item in insights %}
+            <div class="card">
+                <p>{{ item }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <button class="next-btn"><img class="img" src="./imgs/arrow_right.svg"></button>
+</div>
+<script src="./scripts/slider.js"></script>
+</body>
+</html>
+
