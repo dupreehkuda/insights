@@ -58,6 +58,7 @@ body {
 }
 
 .card p {
+    font-size: 24px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -119,6 +120,7 @@ body {
         display: none;
     }
     .card p {
+        font-size: 20px;
         padding: 5px;
     }
     .card {

@@ -14,21 +14,11 @@
     <button class="prev-btn"><img class="img" src="./imgs/arrow_left.svg"></button>
     <div class="slider-container">
         <div class="slider">
+            {% for item in insights %}
             <div class="card">
-                <p>Карточка 1: Это первая карточка с каким-то текстом для примера.</p>
+                <p>{{ item }}</p>
             </div>
-            <div class="card">
-                <p>Карточка 2: Вторая карточка также содержит текст для демонстрации.</p>
-            </div>
-            <div class="card">
-                <p>Карточка 3: И последняя карточка, чтобы показать работу слайдера.</p>
-            </div>
-            <div class="card">
-                <p>Карточка 4: И последняя карточка, чтобы показать работу слайдера.</p>
-            </div>
-            <div class="card">
-                <p>Карточка 5: И последняя карточка, чтобы показать работу слайдера.</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <button class="next-btn"><img class="img" src="./imgs/arrow_right.svg"></button>
