@@ -12,7 +12,7 @@ services:
 #    volumes:
 #      - .:/app
 #    depends_on:
-#      db:
+#      insights-db:
 #        condition: service_started
 #    network_mode: "host"
 
