@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 tokio = { version = "1.34.0", features = ["full"] }
 actix-web = { version = "4.4"  }
+actix-files = "0.6.6"
 askama = "0.12.1"
 serde = { version = "1.0.193", features = ["derive"] }
 dotenv = "0.15.0"

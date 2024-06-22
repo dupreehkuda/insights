@@ -46,7 +46,7 @@ pub struct BriefEventInfo {
 }
 
 #[derive(Template)]
-#[template(path = "pages/new_insight.html")]
+#[template(path = "new_insight.html")]
 pub struct NewInsightTemplate {
     pub event_id: String,
     pub event_subject: String,
@@ -54,13 +54,13 @@ pub struct NewInsightTemplate {
 }
 
 #[derive(Template)]
-#[template(path = "pages/insights.html")]
+#[template(path = "insights.html")]
 pub struct InsightsSummaryTemplate {
     pub insights: Vec<String>,
 }
 
 #[derive(Template)]
-#[template(path = "pages/error.html")]
+#[template(path = "error.html")]
 pub struct ErrorTemplate {
     pub error: String,
 }
