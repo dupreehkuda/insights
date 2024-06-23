@@ -10,6 +10,7 @@ FROM ubuntu:latest
 
 RUN apt-get update
 
+ADD /static /static
 COPY --from=builder /app/target/release/insights /usr/local/bin/insights
 
 EXPOSE 8080

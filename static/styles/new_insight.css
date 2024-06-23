@@ -1,42 +1,42 @@
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/statics/fonts/SFProDisplay-Bold.ttf') format('opentype');
+    src: url('/static/fonts/SFProDisplay-Bold.ttf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Caveat';
-    src: url('/statics/fonts/Caveat-Bold.ttf') format('opentype');
+    src: url('/static/fonts/Caveat-Bold.ttf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Niconne';
-    src: url('/statics/fonts/Niconne-Regular.ttf') format('opentype');
+    src: url('/static/fonts/Niconne-Regular.ttf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/statics/fonts/SFProDisplay-Semibold.ttf') format('opentype');
+    src: url('/static/fonts/SFProDisplay-Semibold.ttf') format('opentype');
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/statics/fonts/SFProDisplay-Medium.ttf') format('opentype');
+    src: url('/static/fonts/SFProDisplay-Medium.ttf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/statics/fonts/SFProDisplay-Regular.ttf') format('opentype');
+    src: url('/static/fonts/SFProDisplay-Regular.ttf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }

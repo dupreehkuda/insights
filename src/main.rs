@@ -38,7 +38,7 @@ async fn main() -> std::io::Result<()> {
                     .service(api::finish_event)
                     .service(pages::new_insight)
                     .service(pages::insights_summary)
-                    .service(Files::new("/statics", "./static").show_files_listing())
+                    .service(Files::new("/static", "./static").show_files_listing())
             })
             .bind(value.to_string())?
             .run()
