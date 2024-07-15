@@ -102,13 +102,6 @@
     gap: 4px;
 }
 
-.ar {
-    display: flex;
-
-    justify-content: center;
-    font-size: 17px;
-}
-
 
 .form_button {
     font-family: SF-Pro-Display, serif;
