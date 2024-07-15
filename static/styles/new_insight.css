@@ -1,42 +1,42 @@
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/static/fonts/SFProDisplay-Bold.ttf') format('opentype');
+    src: url('../fonts/SFProDisplay-Bold.ttf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Caveat';
-    src: url('/static/fonts/Caveat-Bold.ttf') format('opentype');
+    src: url('../fonts/Caveat-Bold.ttf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Niconne';
-    src: url('/static/fonts/Niconne-Regular.ttf') format('opentype');
+    src: url('../fonts/Niconne-Regular.ttf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/static/fonts/SFProDisplay-Semibold.ttf') format('opentype');
+    src: url('../fonts/SFProDisplay-Semibold.ttf') format('opentype');
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/static/fonts/SFProDisplay-Medium.ttf') format('opentype');
+    src: url('../fonts/SFProDisplay-Medium.ttf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro-Display';
-    src: url('/static/fonts/SFProDisplay-Regular.ttf') format('opentype');
+    src: url('../fonts/SFProDisplay-Regular.ttf') format('opentype');
     font-weight: 400;
     font-style: normal;
 }
@@ -61,7 +61,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    font-family: SF-Pro-Display;
+    font-family: SF-Pro-Display, serif;
     background: whitesmoke;
 }
 
@@ -79,10 +79,9 @@
     box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.2);
     background: whitesmoke;
     width: 100%;
-    min-width: 800px;
-    max-height: 500px;
+    max-width: 800px;
+    min-width: 35vw;
     min-height: 400px;
-    color: #ff7e05;
     font-size: 18px;
 }
 
@@ -97,11 +96,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     font-weight: 600;
+    flex-wrap: wrap;
+    gap: 4px;
 }
 
+.ar {
+    display: flex;
+
+    justify-content: center;
+    font-size: 17px;
+}
+
+
 .form_button {
-    font-family: SF-Pro-Display;
+    font-family: SF-Pro-Display, serif;
     box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
     width: 100%;
@@ -116,8 +126,9 @@
 
 @media (max-width: 500px) {
     .input {
-        width: 395px;
-        min-width: unset;
+        width: 100%;
+        max-width: 395px;
+        min-width: 90vw;
     }
 
     .main_insights_container {
