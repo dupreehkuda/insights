@@ -44,7 +44,7 @@ body {
     position: relative;
     overflow: hidden;
     width: 100%;
-    max-width: 800px;
+    max-width: 810px;
 }
 
 .container {
@@ -81,6 +81,7 @@ body {
 }
 
 .input {
+    max-width: 790px;
     border-radius: 10px;
     border: 0px solid #ff7e05;
     box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.2);
@@ -90,13 +91,6 @@ body {
     min-height: 300px;
 }
 
-.btn_clss{
-    padding-right: 2.5vw;
-}
-
-.text_clss {
-    padding-right: 3vw;
-}
 
 .event {
     color: #4d4d4d;
@@ -111,10 +105,12 @@ body {
 
 .insightForm {
     width: 100%;
+    padding: 10px;
 }
 
 
 .form_button {
+    max-width: 795px;
     font-family: SF-Pro-Display, serif;
     box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
@@ -130,10 +126,28 @@ body {
 
 @media (max-width: 500px) {
 
-    .input {
+    .insightForm {
+        display: flex;
+        justify-content: center;
         width: 100%;
-        max-width: 395px;
-        min-width: 90vw;
+        align-items: center;
+    }
+
+    .form_group {
+        padding: 0px 0px 10px 0px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input {
+        width: 350px;
+    }
+
+    .form_button {
+        width: 355px;
     }
 
     .main_insights_container {
@@ -141,11 +155,11 @@ body {
     }
 
     .btn_clss{
-        padding-right: 4.5vw;
+        padding-right: 0vw;
     }
 
     .text_clss {
-        padding-right: 6vw;
+        padding-right: 0vw;
     }
 
     .main_insights_container {
