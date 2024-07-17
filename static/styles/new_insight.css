@@ -60,21 +60,17 @@ body {
 }
 
 .main_insights_container {
-    padding-top: 150px;
+    padding-top: 100px;
     width: 100%;
     height: 1000px;
     font-family: SF-Pro-Display, serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .submit_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+
 }
 
 .form_group {
@@ -95,11 +91,11 @@ body {
 }
 
 .btn_clss{
-    padding-right: 17px;
+    padding-right: 2.5vw;
 }
 
 .text_clss {
-    padding-right: 20px;
+    padding-right: 3vw;
 }
 
 .event {
@@ -117,6 +113,7 @@ body {
     width: 100%;
 }
 
+
 .form_button {
     font-family: SF-Pro-Display, serif;
     box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.3);
@@ -132,7 +129,8 @@ body {
 }
 
 @media (max-width: 500px) {
-    .input, .form_button {
+
+    .input {
         width: 100%;
         max-width: 395px;
         min-width: 90vw;
@@ -143,10 +141,20 @@ body {
     }
 
     .btn_clss{
-        padding-right: 19px;
+        padding-right: 4.5vw;
     }
 
     .text_clss {
-        padding-right: 23px;
+        padding-right: 6vw;
+    }
+
+    .main_insights_container {
+        padding-top: 50px;
+        width: 100%;
+        height: 1000px;
+        font-family: SF-Pro-Display, serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
