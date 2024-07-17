@@ -18,10 +18,14 @@
                 <p>{{ event_subject }}</p>
             </div>
             <form id="insightForm">
-                <div class="submit_container">
-                    <textarea type="text" id="insight" class="input" placeholder="insight" name="insight" required></textarea>
+                <div class="form_group">
+                    <div class="text_clss">
+                        <textarea type="text" id="insight" class="input" placeholder="insight" name="insight" style="resize: none"></textarea>
+                    </div>
+                    <div class="btn_clss">
+                        <button type="button" class="form_button" onclick="submitForm()">Send</button>
+                    </div>
                 </div>
-                <button type="button" class="form_button" onclick="submitForm()">Send</button>
             </form>
         </div>
     </div>
@@ -64,3 +68,4 @@
 
 </body>
 </html>
+
