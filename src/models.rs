@@ -56,6 +56,7 @@ pub struct NewInsightTemplate {
 #[derive(Template)]
 #[template(path = "insights.html")]
 pub struct InsightsSummaryTemplate {
+    pub event_subject: String,
     pub insights: Vec<String>,
 }
 

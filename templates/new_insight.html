@@ -2,70 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>insights</title>
-    <link rel="stylesheet" href="/static/styles/new_insight.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{{ event_subject }} — insights</title>
+    <link rel="stylesheet" href="/static/styles/insights.css">
 </head>
 <body>
-<div class="main_insights_container">
-    <div class="insights_title">
-        <h2 class="insights">insights</h2>
-    </div>
-    <div class="container">
-        <div class="insights_container">
-            <div class="event">
-                <p>Write your insight for event on</p>
-                <p>{{ event_subject }}</p>
+{% include "_top.html" %}
+    <main>
+        <h1 class="rise">{{ event_subject }}</h1>
+
+        <form id="insightForm" class="rise">
+            <label class="card" for="insight">
+                <textarea id="insight" name="insight" placeholder="What stayed with you?" maxlength="2000" required></textarea>
+                <span class="card-foot"><span id="count">0</span> / 2000</span>
+            </label>
+            <button type="submit" class="btn" id="submit" disabled>
+                Add to the deck
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="form-note" id="error" hidden>Couldn't save it. Try again.</p>
+        </form>
+
+        <section id="done" hidden>
+            <div class="card">
+                <p class="card-text" data-size="xl">Added to the deck.</p>
             </div>
-            <form id="insightForm">
-                <div class="form_group">
-                    <div class="text_clss">
-                        <textarea type="text" id="insight" class="input" placeholder="insight" name="insight" style="resize: none"></textarea>
-                    </div>
-                    <div class="btn_clss">
-                        <button type="button" class="form_button" onclick="submitForm()">Send</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div id="successMessage" style="display: none; color: green;">
-        Submission successful!
-    </div>
-    <div id="error" style="display: none; color: red;">
-        Something went wrong
-    </div>
+            <button type="button" class="btn btn-ghost" id="again">Write another one</button>
+        </section>
+    </main>
 </div>
 <script>
-    async function submitForm() {
-        const data = {
-            event_id: "{{ event_id }}",
-            insight: document.getElementById("insight").value
-        };
+    const form = document.getElementById("insightForm");
+    const input = document.getElementById("insight");
+    const submit = document.getElementById("submit");
+    const errorNote = document.getElementById("error");
+    const done = document.getElementById("done");
 
+    input.addEventListener("input", () => {
+        document.getElementById("count").textContent = input.value.length;
+        submit.disabled = input.value.trim().length === 0;
+    });
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        submit.disabled = true;
+        errorNote.hidden = true;
         try {
             const response = await fetch("{{ host }}/api/v1/insight", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ event_id: "{{ event_id }}", insight: input.value.trim() })
             });
-
-            if (response.ok) {
-                document.getElementById("successMessage").style.display = "block";
-                document.getElementById("insightForm").style.display = "none";
-            } else {
-                console.error(`HTTP error! Status: ${response.status}`);
-            }
-        } catch (error) {
-            document.getElementById("error").style.display = "block";
-            document.getElementById("insightForm").style.display = "none";
-            console.error("Network error occurred", error);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            form.hidden = true;
+            done.hidden = false;
+        } catch (err) {
+            console.error(err);
+            errorNote.hidden = false;
+            submit.disabled = false;
         }
-    }
-</script>
+    });
 
+    document.getElementById("again").addEventListener("click", () => {
+        input.value = "";
+        input.dispatchEvent(new Event("input"));
+        done.hidden = true;
+        form.hidden = false;
+        input.focus();
+    });
+</script>
 </body>
 </html>
-
