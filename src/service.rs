@@ -101,10 +101,6 @@ impl Service {
         self.repository
             .get_all_insights_for_event(event_id)
             .await
-            .map(|mut t| {
-                t.event_subject = brief_info.event_subject;
-                t
-            })
             .map_err(|err| Box::new(err) as Box<dyn Error>)
     }
 }
