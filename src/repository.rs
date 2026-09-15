@@ -122,7 +122,10 @@ impl Repository {
             .await
             .unwrap();
 
-        let mut ans = InsightsSummaryTemplate { insights: vec![] };
+        let mut ans = InsightsSummaryTemplate {
+            event_subject: String::new(),
+            insights: vec![],
+        };
 
         for row in result {
             ans.insights.push(row.get(0))
