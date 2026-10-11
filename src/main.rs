@@ -5,8 +5,8 @@ mod pages;
 mod repository;
 mod service;
 
-use actix_web::{web, App, HttpServer};
 use actix_files::Files;
+use actix_web::{web, App, HttpServer};
 use dotenv::dotenv;
 use std::env;
 use std::io::{Error, ErrorKind};
@@ -38,6 +38,7 @@ async fn main() -> std::io::Result<()> {
                     .service(api::finish_event)
                     .service(pages::new_insight)
                     .service(pages::insights_summary)
+                    .service(pages::restore_link)
                     .service(Files::new("/static", "./static").show_files_listing())
             })
             .bind(value.to_string())?

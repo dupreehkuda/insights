@@ -6,6 +6,13 @@ use std::env;
 use std::str::FromStr;
 use uuid::Uuid;
 
+#[get("/restore")]
+async fn restore_link() -> impl Responder {
+    HttpResponse::Ok()
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../templates/restore.html"))
+}
+
 #[get("/insights/{event_id}")]
 async fn new_insight(service: web::Data<service::Service>, req: HttpRequest) -> impl Responder {
     let event_id = req.match_info().get("event_id").unwrap_or_default();

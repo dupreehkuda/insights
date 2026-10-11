@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
+    <title>Restore an old link — insights</title>
+    <link rel="stylesheet" href="/static/styles/insights.css">
+    <link rel="stylesheet" href="/static/styles/restore.css">
+    <script type="module" src="/static/scripts/restore.mjs"></script>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<div class="shell restore-shell">
+    <header class="top"><span class="wordmark">insights</span></header>
+    <main>
+        <h1>Restore an old link.</h1>
+        <p class="lead restore-lead">Paste a link from an old Telegram message to open the same event at its new address.</p>
+        <form id="restoreForm">
+            <label class="restore-label" for="oldLink">Old link</label>
+            <div class="card restore-card">
+                <textarea id="oldLink" rows="3" maxlength="2048" required autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="linkHint linkError" placeholder="Paste your event or summary link"></textarea>
+            </div>
+            <p id="linkHint" class="restore-hint">The event stays the same. Only its address changes.</p>
+            <p id="linkError" class="form-note" role="alert" hidden></p>
+            <button type="submit" id="restoreButton" class="btn" disabled>Restore link</button>
+            <noscript><p class="form-note">Enable JavaScript to restore a link.</p></noscript>
+        </form>
+        <section id="result" class="restore-result" aria-labelledby="resultTitle" hidden>
+            <h2 id="resultTitle">Your link is ready.</h2>
+            <label class="restore-label" for="newLink">New link</label>
+            <div class="card restore-card">
+                <textarea id="newLink" rows="3" readonly spellcheck="false"></textarea>
+            </div>
+            <div class="restore-actions">
+                <a id="openLink" class="btn">Open event</a>
+                <button type="button" id="copyLink" class="btn btn-ghost">Copy link</button>
+            </div>
+            <p id="copyStatus" class="restore-hint" role="status"></p>
+            <p class="restore-hint">This updates the address. It cannot reopen a closed event or recover one that was deleted.</p>
+        </section>
+    </main>
+</div>
+</body>
+</html>

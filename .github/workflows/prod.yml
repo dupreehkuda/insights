@@ -24,6 +24,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Check link recovery
+        run: node --test tests/restore-link.test.mjs
+
       - name: Set up Docker Buildx
         id: docker_buildx
         uses: docker/setup-buildx-action@v1

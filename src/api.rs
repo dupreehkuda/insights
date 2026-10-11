@@ -1,7 +1,7 @@
 use crate::{models, service};
 use actix_web::{post, web, HttpResponse, Responder};
-use std::env;
 use log::info;
+use std::env;
 
 #[post("/api/v1/event/register")]
 async fn register_event(
@@ -67,7 +67,7 @@ async fn finish_event(
         Ok(_) => {
             info!("/api/v1/event/finish success 200");
             HttpResponse::Ok()
-        },
+        }
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
             info!("/api/v1/event/finish error 400");
@@ -85,7 +85,7 @@ async fn register_insight(
         Ok(_) => {
             info!("/api/v1/insight success 200");
             HttpResponse::Ok().finish()
-        },
+        }
         Err(err) => {
             eprintln!("Error processing the event: {:?}", err);
             info!("/api/v1/insight error 500");
