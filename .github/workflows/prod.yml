@@ -1,12 +1,23 @@
 name: production deploy
 
 on:
+  workflow_dispatch:
+    inputs:
+      deploy_only:
+        description: Deploy the currently published image without rebuilding
+        type: boolean
+        default: false
   push:
     branches:
       - main
 
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   build-and-push:
+    if: ${{ !inputs.deploy_only }}
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +41,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/insights-prod:latest
 
   deploy-timeweb:
+    if: ${{ always() && (needs.build-and-push.result == 'success' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only)) }}
     needs: build-and-push
     runs-on: ubuntu-latest
 
@@ -39,7 +51,7 @@ jobs:
         with:
           host: ${{ vars.TIMEWEB_IP }}
           username: ${{ vars.TIMEWEB_USERNAME }}
-          password: ${{ secrets.TIMEWEB_PASSWORD }}
+          key: ${{ secrets.TIMEWEB_DEPLOY_KEY }}
           script: |
             cd insights
             make deploy
